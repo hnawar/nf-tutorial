@@ -1,29 +1,13 @@
 #!/usr/bin/env nextflow
 
-params.str = 'Hello world!'
+inpu_file = params.input_file
 
-process splitLetters {
-
-    output:
-    file 'chunk_*' into letters
-
-    """
-    printf '${params.str}' | split -b 6 - chunk_
-    """
-}
-
-
-process convertToUpper {
-
-    input:
-    file x from letters.flatten()
+process rename_to_out {
 
     output:
-    stdout result
+    file '*.out' 
 
     """
-    cat $x | tr '[a-z]' '[A-Z]'
+    mv $input_file ${input_file}.out
     """
 }
-
-result.view { it.trim() }
