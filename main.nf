@@ -8,7 +8,9 @@ process rename_to_out {
 
     output:
     file '*.out' 
-
+    
+    container gcr.io/alpine-with-bash
+    
     """
     mv $input ${input}.out
     """
